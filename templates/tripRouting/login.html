@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'tripRouting/styles/login.css' %}">
+    <title>Login page</title>
+</head>
+<body>
+{% if msg %}
+    <h1>{{ msg }}</h1>
+{% endif %}
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+    {{ userform.as_p }}
+    <input type="submit" value="Login" />
+    <a href="{% url 'tripRouting:regist' %}"><input type="button" value="Regist" onclick="location.href = {% url 'tripRouting:regist' %}" /></a>
+</form>
+</body>
+</html>
