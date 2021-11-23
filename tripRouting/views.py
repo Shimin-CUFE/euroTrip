@@ -1,4 +1,5 @@
 from django import forms
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
 from .models import User
@@ -6,14 +7,14 @@ from .models import User
 
 class UserForm(forms.Form):
     username = forms.CharField(label='username', max_length=50)
-    password = forms.CharField(label='pwd', widget=forms.PasswordInput)
+    password = forms.CharField(label='password', widget=forms.PasswordInput)
 
 
 def index(request):
     """Load index page"""
-    islogin = request.session.get('islogin', None)
+    status = request.session.get('status', None)
     username = request.session.get('username', None)
-    if islogin == 1:
+    if status == 1:
         return render(request, 'tripRouting/index.html', {'islogin': True, 'username': username})
     return render(request, 'tripRouting/index.html', {'islogin': False})
 
@@ -28,8 +29,8 @@ def login(request):
             user = User.objects.filter(user_name__exact=username, user_pwd__exact=password)
             if user:
                 request.session['username'] = username
-                request.session['islogin'] = 1
-                request.session.set_expiry(30)
+                request.session['status'] = 1
+                request.session.set_expiry(0)
                 return redirect('tripRouting:index')
             else:
                 return render(request, 'tripRouting/login.html', {'userform': userform, 'msg': 'Invalid Login!'})
@@ -45,6 +46,7 @@ def logout(request):
 
 def regist(request):
     """Load regist page"""
+    print("start regist")
     if request.method == 'POST':
         userform = UserForm(request.POST)
         if userform.is_valid():
@@ -60,4 +62,13 @@ def regist(request):
 
 
 def routing(request):
+    status = request.session.get('status', None)
+    if status != 1:
+        return redirect('tripRouting:login')
     return render(request, 'tripRouting/routing.html')
+
+
+def routing_ajax(request):
+    n1 = int(request.GET.get('n1'))
+    n2 = int(request.GET.get('n2'))
+    return JsonResponse({'n1': n1, 'n2': n2}, content_type="application/json")

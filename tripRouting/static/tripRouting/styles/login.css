@@ -1,4 +1,30 @@
-html, body {
+body div {
+    margin: auto;
+    vertical-align: middle;
+}
+
+.mx-auto {
+    margin-top: 200px;
+    border: solid 3px darkgrey;
+    width: 750px;
+    height: 400px;
+    position: relative;
+    display: table;
+    background: #1b6d85;
+}
+
+.login-form {
+    margin: auto;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.form-group {
+    width: 200px;
+}
+
+.login-btn {
+    padding: 5px;
+    margin: auto;
     text-align: center;
-    margin: 0 auto;
 }

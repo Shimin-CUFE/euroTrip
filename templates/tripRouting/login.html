@@ -6,17 +6,58 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'tripRouting/styles/login.css' %}">
+    <link rel="shortcut icon" href="{% static 'tripRouting/images/favicon.ico' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'tripRouting/styles/login.css' %}"/>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <!-- jQuery and Bootstrap JS -->
+    <script src="{% static 'jquery/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <title>Login page</title>
 </head>
 <body>
-{% if msg %}
-    <h1>{{ msg }}</h1>
-{% endif %}
-<form method="post" enctype="multipart/form-data">{% csrf_token %}
-    {{ userform.as_p }}
-    <input type="submit" value="Login" />
-    <a href="{% url 'tripRouting:regist' %}"><input type="button" value="Regist" onclick="location.href = {% url 'tripRouting:regist' %}" /></a>
-</form>
+
+
+<div style="" class="mx-auto">
+    <form class="login-form" method="post" enctype="multipart/form-data">{% csrf_token %}
+        <div class="form-group">
+            <label for="email">Username</label><br>
+            {{ userform.username }}
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label><br>
+            {{ userform.password }}
+        </div>
+        <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="checkbox" onclick="check()">
+            <label class="form-check-label" for="checkbox">I accept the EULR</label>
+        </div>
+        <div class="login-btn">
+            {% if msg %}
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{ msg }}
+                </div>
+            {% endif %}
+            <button type="submit" class="btn btn-primary" id="login" disabled="disabled">Login</button>
+        </div>
+        <div class="regist-btn">
+            <a href="{% url 'tripRouting:regist' %}">
+                <button type="button" class="btn btn-info" id="regist">Regist</button>
+            </a>
+        </div>
+    </form>
+</div>
+<script>
+    function check() {
+        var checkbox = document.getElementById("checkbox");
+        if (checkbox.checked) {
+            document.getElementById("login").disabled = "";
+        } else {
+            document.getElementById("login").disabled = "disabled";
+        }
+    }
+</script>
 </body>
 </html>
