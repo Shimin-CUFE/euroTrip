@@ -10,5 +10,6 @@ urlpatterns = [
     path('logout', views.logout, name='logout'),
     path('regist/', views.regist, name='regist'),
     path('routing/', views.routing, name='routing'),
-    path('routing_ajax/', views.routing_ajax, name='routing_ajax')
+    path('routing_ajax_init/', views.routing_ajax_init, name='routing_ajax_init'),
+    path('routing_ajax_select/', views.routing_ajax_select, name='routing_ajax_select'),
 ]

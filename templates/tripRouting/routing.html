@@ -13,6 +13,29 @@
     <!-- jQuery and Bootstrap JS -->
     <script src="{% static 'jquery/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#submit").click(function () {
+                $.ajax({
+                    url: '/euroTrip/routing_ajax_init/',
+                    type: 'get',
+                    data: {
+                        n1: $("#trip-days").val(),
+                        n2: $("#trip-budget").val(),
+                    },
+                    success: function (json_data) {
+                        $("#n1").val(json_data.n1)
+                        $("#n2").val(json_data.n2)
+                        $("#main-function").removeAttr("hidden")
+                    },
+                });
+            });
+        });
+    </script>
+    <!-- Baidu Map -->
+    <script type="text/javascript"
+            src="https://api.map.baidu.com/api?v=1.0&&type=webgl&ak=lpMMxyYU12aBGREnihgEIZzMjfo5TUY2"></script>
+
     <title>Routing</title>
 </head>
 <body>
@@ -31,25 +54,23 @@
 </div>
 <button id="submit">GET</button>
 <div class="input-group">
-    <label for="n1">Ajax result1</label><input type="text" class="form-control" id="n1" aria-describedby="basic-addon3"><br>
-    <label for="n2">Ajax result2</label><input type="text" class="form-control" id="n2" aria-describedby="basic-addon3">
+    <label for="n1">Current days</label><input type="text" class="form-control" id="n1" aria-describedby="basic-addon3"><br>
+    <label for="n2">Current budgets</label><input type="text" class="form-control" id="n2"
+                                                  aria-describedby="basic-addon3">
 </div>
-<script>
-    $("#submit").click(function () {
-        $.ajax({
-            url: '/euroTrip/routing_ajax/',
-            type: 'get',
-            data: {
-                n1: $("#trip-days").val(),
-                n2: $("#trip-budget").val()
-            },
-            success: function (json_data) {
-                $("#n1").val(json_data.n1)
-                $("#n2").val(json_data.n2)
+<div class="main-area" id="main-function" hidden>
+    <div class="list-group" id="city-list">
+        {% for city in city_list %}
+            <input type="checkbox" class="list-group-item" id="{{ city.city_id }}"/>
+            <label for="{{ city.city_id }}">{{ city.city_name }}</label></li>
+        {% endfor %}
+    </div>
+    <div class="map-group">
+        <div class="info">Map area</div>
+        <div id="container" style="width: 400px; height: 400px; background: grey;"></div>
+        <script type="text/javascript" src="{% static 'tripRouting/javascripts/map.js' %}"></script>
+    </div>
+</div>
 
-            },
-        })
-    })
-</script>
 </body>
 </html>
