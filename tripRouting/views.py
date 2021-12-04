@@ -1,3 +1,5 @@
+import json
+
 from django import forms
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
@@ -65,21 +67,25 @@ def routing(request):
     status = request.session.get('status', None)
     if status != 1:
         return redirect('tripRouting:login')
-    city_list = City.objects.all()
-    route_list = Route.objects.all()
-    context = {
-        'city_list': city_list,
-        'route_list': route_list,
-    }
-    print(context)
-    return render(request, 'tripRouting/routing.html', context)
+    # Safety return
+    return render(request, 'tripRouting/routing.html')
 
 
 def routing_ajax_init(request):
-    n1 = int(request.GET.get('n1'))
-    n2 = int(request.GET.get('n2'))
-    return JsonResponse({'n1': n1, 'n2': n2}, content_type="application/json")
-
-
-def routing_ajax_select(request):
-    return render(request, 'tripRouting/routing.html')
+    city_list = City.objects.all()
+    route_list = Route.objects.all()
+    cities = {}
+    counter = 0
+    for city in city_list:
+        cities[counter] = str(city.to_json())
+        counter += 1
+    routes = {}
+    counter = 0
+    for route in route_list:
+        routes[counter] = str(route.to_json())
+        counter += 1
+    # print(str(cities))
+    # print(str(routes))
+    # print(json.dumps(cities, ensure_ascii=False).encode('utf-8').decode())
+    # print(json.dumps(routes, ensure_ascii=False).encode('utf-8').decode())
+    return JsonResponse(json.dumps({'city': (json.dumps(cities, ensure_ascii=False).encode('utf-8').decode()), 'route': json.dumps(routes, ensure_ascii=False).encode('utf-8').decode()}, ensure_ascii=False).encode('utf-8').decode(), safe=False)
