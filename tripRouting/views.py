@@ -1,7 +1,7 @@
 import json
 
 from django import forms
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from .models import User, City, Route
@@ -16,9 +16,12 @@ def index(request):
     """Load index page"""
     status = request.session.get('status', None)
     username = request.session.get('username', None)
+
+    city_list = City.objects.all()
+
     if status == 1:
-        return render(request, 'tripRouting/index.html', {'islogin': True, 'username': username})
-    return render(request, 'tripRouting/index.html', {'islogin': False})
+        return render(request, 'tripRouting/index.html', {'islogin': True, 'username': username, 'city_list': city_list})
+    return render(request, 'tripRouting/index.html', {'islogin': False, 'city_list': city_list})
 
 
 def login(request):

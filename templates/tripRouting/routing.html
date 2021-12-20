@@ -21,35 +21,37 @@
     <title>Routing</title>
 </head>
 <body>
-<div id="container"></div>
-<div class="input-area">
-    <label for="trip-days">Your days</label>
-    <div class="input-group">
-        <span class="input-group-addon" id="basic-addon3">Suppose: </span>
-        <input type="text" class="form-control" id="trip-days" aria-describedby="basic-addon3">
-        <span class="input-group-addon">days</span>
-    </div>
-    <label for="trip-budget">Your budget</label>
-    <div class="input-group">
-        <span class="input-group-addon">$</span>
-        <input type="text" class="form-control" id="trip-budget" aria-describedby="basic-addon3">
-        <span class="input-group-addon">.00</span>
-    </div>
-</div>
-
-<div class="main-area" id="main-function">
-    <!-- Constraint info -->
-    <div class="constraint-info" id="city-list" hidden>
-        <label for="days-info">Days: </label><input type="text" id="days-info" value=""/>
-        <label for="budget-info">Budgets:</label><input type="text" id="budget-info" value=""/>
-        <p id="json-show"></p>
+    <div id="container"></div>
+    <div class="input-area">
+        <label for="trip-days">Your days</label>
+        <div class="input-group">
+            <span class="input-group-addon" id="basic-addon3">Suppose: </span>
+            <input type="text" class="form-control" id="trip-days" aria-describedby="basic-addon3">
+            <span class="input-group-addon">days</span>
+        </div>
+        <label for="trip-budget">Your budget</label>
+        <div class="input-group">
+            <span class="input-group-addon">$</span>
+            <input type="text" class="form-control" id="trip-budget" aria-describedby="basic-addon3">
+            <span class="input-group-addon">.00</span>
+        </div>
     </div>
 
-    <div class="city-area">
-
+    <!-- 错误提示 -->
+    <div class='alert alert-heading' hidden>
+        <a href='#' class='close' data-dismiss='alert'>关闭</a>
+        <h4 id="notice-title"></h4>
+        <h6 id="notice-text"></h6>
     </div>
-</div>
 
-
+    <div class="main-area" id="main-function">
+        <!-- 向js传递限制信息 保持hidden -->
+        <div class="constraint-info" id="city-list" hidden>
+            <label for="days-info">Days: </label><input type="text" id="days-info" value=""/>
+            <label for="budget-info">Budgets:</label><input type="text" id="budget-info" value=""/>
+        </div>
+        <div class="city-area"></div>
+        <input type="button" id="continue" value="DONE>>">
+    </div>
 </body>
 </html>

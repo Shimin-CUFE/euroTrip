@@ -8,18 +8,17 @@
     z-index: -1;
 }
 
+.input-area {
+    background: red;
+}
+
 #main-function {
     width: 400px;
-    height: 800px;
+    height: 600px;
     background: yellow;
     position: absolute;
     right: 0;
-    z-index: 9999;
-}
-
-
-.input-area {
-    background: red;
+    z-index: 1000;
 }
 
 .city-area {
@@ -27,4 +26,15 @@
 
 .city-img {
     width: 200px;
+}
+
+.alert-heading {
+    width: 100%;
+    background-color: blue;
+    color: white;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1001;
 }

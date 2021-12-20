@@ -8,11 +8,7 @@
     {% load static %}
     <link rel="shortcut icon" href="{% static 'tripRouting/images/favicon.ico' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'tripRouting/styles/index.css' %}"/>
-    <style>
-        body {
-            background: url("{% static 'tripRouting/images/test.jpg' %}");
-        }
-    </style>
+    <script src="{% static 'tripRouting/scripts/index.js' %}"></script>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <!-- jQuery and Bootstrap JS -->
@@ -21,7 +17,7 @@
     <title>Index page</title>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" id="index-navbar">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -80,34 +76,21 @@
     </div><!-- /.container-fluid -->
 </nav>
 <div class="page-header">
-    <h1>Welcome to EuroTrip <small>Start your trip routing experience now!</small></h1>
+    <h1>Welcome to EuroTrip <br><small>Start your trip routing experience now!</small></h1>
+    <div class="intro-button-area">
+        {% if islogin != True %}
+            <a href="{% url 'tripRouting:routing' %}"><button class="intro-button">Login to start!<span>-</span></button></a>
+        {% else %}
+            <a href="{% url 'tripRouting:routing' %}"><button class="intro-button">Start your EuroTrip!<span>-</span></button></a>
+        {% endif %}
+    </div>
 </div>
-
-<br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p><br><br>
-<p>this is a passage</p>
+<div class="city-show">
+    {% for city in city_list %}
+        <h6><b>{{ city.city_name }}</b></h6>
+        <img src="{% static 'tripRouting/images/'|add:city.city_url %}" alt="{{ city.city_name }}"
+             class="city-show-img"/><br><br><br>
+    {% endfor %}
+</div>
 </body>
 </html>
