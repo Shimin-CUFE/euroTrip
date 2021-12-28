@@ -11,4 +11,5 @@ urlpatterns = [
     path('regist/', views.regist, name='regist'),
     path('routing/', views.routing, name='routing'),
     path('routing_ajax_init/', views.routing_ajax_init, name='routing_ajax_init'),
+    path('success', views.success, name='success'),
 ]

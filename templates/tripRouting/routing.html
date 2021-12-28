@@ -21,37 +21,97 @@
     <title>Routing</title>
 </head>
 <body>
-    <div id="container"></div>
-    <div class="input-area">
-        <label for="trip-days">Your days</label>
-        <div class="input-group">
-            <span class="input-group-addon" id="basic-addon3">Suppose: </span>
-            <input type="text" class="form-control" id="trip-days" aria-describedby="basic-addon3">
-            <span class="input-group-addon">days</span>
+<nav class="navbar navbar-default navbar-fixed-top" id="index-navbar">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" style="padding: 5px 25px 5px 15px">
+                <img alt="Brand" src="{% static 'tripRouting/images/favicon.ico' %}"
+                     style="height: 100%; width: inherit; padding: 0; margin: 0"/>
+            </a>
+            <b class="navbar-brand" style="padding-left: 0; font-size: 25px">EuroTrip</b>
         </div>
-        <label for="trip-budget">Your budget</label>
-        <div class="input-group">
-            <span class="input-group-addon">$</span>
-            <input type="text" class="form-control" id="trip-budget" aria-describedby="basic-addon3">
-            <span class="input-group-addon">.00</span>
-        </div>
-    </div>
 
-    <!-- 错误提示 -->
-    <div class='alert alert-heading' hidden>
-        <a href='#' class='close' data-dismiss='alert'>关闭</a>
-        <h4 id="notice-title"></h4>
-        <h6 id="notice-text"></h6>
-    </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <div class="input-group">
+                        <span class="input-group-addon">预算：</span>
+                        <input type="text" class="form-control" id="trip-budget" aria-describedby="basic-addon3">
+                        <span class="input-group-addon"><b>元</b></span>
+                    </div>
+                </li>
+                <li>
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon3">天数：</span>
+                        <input type="text" class="form-control" id="trip-days" aria-describedby="basic-addon3">
+                        <span class="input-group-addon"><b>天</b></span>
+                    </div>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
 
-    <div class="main-area" id="main-function">
-        <!-- 向js传递限制信息 保持hidden -->
-        <div class="constraint-info" id="city-list" hidden>
-            <label for="days-info">Days: </label><input type="text" id="days-info" value=""/>
-            <label for="budget-info">Budgets:</label><input type="text" id="budget-info" value=""/>
+<!-- 错误提示 -->
+<div class='alert alert-heading' hidden>
+    <a href='#' class='close' data-dismiss='alert'><span>×</span></a>
+    <h4 id="notice-title"></h4>
+    <h6 id="notice-text"></h6>
+</div>
+
+<!-- 路径选择弹窗部分 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">请选择交通方式</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" id="modal_route_list">
+                </div>
+            </div>
         </div>
-        <div class="city-area"></div>
-        <input type="button" id="continue" value="DONE>>">
     </div>
+</div>
+
+
+<!-- 选择条件部分 -->
+<div id="container"></div>
+<!--
+<div class="input-area">
+    <label for="trip-days">Your days</label>
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon3">Suppose: </span>
+        <input type="text" class="form-control" id="trip-days" aria-describedby="basic-addon3">
+        <span class="input-group-addon">days</span>
+    </div>
+    <label for="trip-budget">Your budget</label>
+    <div class="input-group">
+        <span class="input-group-addon">$</span>
+        <input type="text" class="form-control" id="trip-budget" aria-describedby="basic-addon3">
+        <span class="input-group-addon">.00</span>
+    </div>
+</div>
+-->
+
+<div class="main-area" id="main-function" hidden>
+    <!-- 向js传递限制信息 保持hidden -->
+    <div class="constraint-info" id="city-list" hidden>
+        <label for="days-info">Days: </label><input type="text" id="days-info" value=""/>
+        <label for="budget-info">Budgets:</label><input type="text" id="budget-info" value=""/>
+    </div>
+    <!-- 城市选项部分 -->
+    <div class="city-area"></div>
+    <br><input type="button" class="btn btn-primary con-btn" id="continue" value="DONE>>" onclick="submit(user_selection);">
+</div>
 </body>
 </html>

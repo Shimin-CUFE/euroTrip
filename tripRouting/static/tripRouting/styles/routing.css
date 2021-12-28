@@ -9,32 +9,61 @@
 }
 
 .input-area {
-    background: red;
+    padding: 10px 100px 30px 100px;
+    background: rgba(240, 240, 240, 0.9);
 }
 
 #main-function {
     width: 400px;
     height: 600px;
-    background: yellow;
+    padding: 15px 5px 15px 5px;
+    text-align: center;
+    border-radius: 10px;
+    background: rgba(200, 200, 200, 0.85);
     position: absolute;
-    right: 0;
+    right: 10px;
+    bottom: 25px;
     z-index: 1000;
 }
 
 .city-area {
-}
-
-.city-img {
-    width: 200px;
+    text-align: center;
+    width: 100%;
 }
 
 .alert-heading {
     width: 100%;
-    background-color: blue;
+    background-color: #c9302c;
     color: white;
-    opacity: 0.5;
+    opacity: 75%;
     position: absolute;
-    top: 0;
+    top: 50px;
     left: 0;
     z-index: 1001;
+}
+
+#modal_route_list {
+    text-align: center;
+    vertical-align: center;
+}
+
+.input-group {
+    position: relative;
+    float: right;
+    width: 400px;
+    vertical-align: center;
+    text-align: center;
+    padding: 7px 20px 0 20px;
+}
+
+.city-btn:hover {
+    font-weight: bold;
+}
+
+.city-days-input {
+    margin: 5px 0 5px 0;
+}
+
+.route-btn {
+    width: 100px;
 }

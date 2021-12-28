@@ -3,6 +3,7 @@ import json
 from django import forms
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import User, City, Route
 
@@ -20,7 +21,8 @@ def index(request):
     city_list = City.objects.all()
 
     if status == 1:
-        return render(request, 'tripRouting/index.html', {'islogin': True, 'username': username, 'city_list': city_list})
+        return render(request, 'tripRouting/index.html',
+                      {'islogin': True, 'username': username, 'city_list': city_list})
     return render(request, 'tripRouting/index.html', {'islogin': False, 'city_list': city_list})
 
 
@@ -87,8 +89,15 @@ def routing_ajax_init(request):
     for route in route_list:
         routes[counter] = str(route.to_json())
         counter += 1
-    # print(str(cities))
-    # print(str(routes))
-    # print(json.dumps(cities, ensure_ascii=False).encode('utf-8').decode())
-    # print(json.dumps(routes, ensure_ascii=False).encode('utf-8').decode())
-    return JsonResponse(json.dumps({'city': (json.dumps(cities, ensure_ascii=False).encode('utf-8').decode()), 'route': json.dumps(routes, ensure_ascii=False).encode('utf-8').decode()}, ensure_ascii=False).encode('utf-8').decode(), safe=False)
+    return JsonResponse(json.dumps({'city': (json.dumps(cities, ensure_ascii=False).encode('utf-8').decode()),
+                                    'route': json.dumps(routes, ensure_ascii=False).encode('utf-8').decode()},
+                                   ensure_ascii=False).encode('utf-8').decode(), safe=False)
+
+
+@csrf_exempt
+def success(request):
+    if request.method == 'POST':
+        return render(request, 'tripRouting/success.html')
+    else:
+        context = json.loads(str(request.GET['data']))
+        return render(request, 'tripRouting/success.html', context=context)
