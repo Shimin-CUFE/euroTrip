@@ -19,10 +19,12 @@
     padding: 15px 5px 15px 5px;
     text-align: center;
     border-radius: 10px;
-    background: rgba(200, 200, 200, 0.85);
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.6);
     position: absolute;
-    right: 10px;
-    bottom: 25px;
+    right: 20px;
+    bottom: 45px;
     z-index: 1000;
 }
 
@@ -32,10 +34,8 @@
 }
 
 .alert-heading {
-    width: 100%;
-    background-color: #c9302c;
-    color: white;
-    opacity: 75%;
+    padding: 12px 30px 5px 30px;
+    width: 40%;
     position: absolute;
     top: 50px;
     left: 0;
@@ -66,4 +66,19 @@
 
 .route-btn {
     width: 100px;
+}
+
+.form-group {
+    margin-right: 20px;
+}
+
+.navbar-fixed-bottom {
+    min-height: 37px;
+    vertical-align: center;
+}
+
+#bottom-info {
+    font-size: 13px;
+    font-style: italic;
+    text-align: center;
 }

@@ -13,41 +13,47 @@
     <!-- jQuery and Bootstrap JS -->
     <script src="{% static 'jquery/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-    <title>Login page</title>
+    <title>登录到EuroTrip</title>
 </head>
 <body>
 
-
-<div style="" class="mx-auto">
-    <form class="login-form" method="post" enctype="multipart/form-data">{% csrf_token %}
-        <div class="form-group">
-            <label for="username">Username</label><br>
-            {{ userform.username }}
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label><br>
-            {{ userform.password }}
-        </div>
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="checkbox" onclick="check()">
-            <label class="form-check-label" for="checkbox">I accept the <a href="#">EULR</a></label>
-        </div>
-        <div class="login-btn">
-            {% if msg %}
-                <div class="alert alert-danger" role="alert">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Error:</span>
-                    {{ msg }}
-                </div>
-            {% endif %}
-            <button type="submit" class="btn btn-primary" id="login" disabled="disabled">Login</button>
-        </div>
-        <div class="regist-btn">
-            <a href="{% url 'tripRouting:regist' %}">
-                <button type="button" class="btn btn-info" id="regist">Regist</button>
-            </a>
-        </div>
-    </form>
+{% if msg %}
+    <div class="alert alert-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">错误:</span>
+        {{ msg }}
+    </div>
+{% endif %}
+<div class="container">
+    <div class="form-row">
+        <form class="form-horizontal col-sm-offset-1 col-md-offset-1 login-form" method="post"
+              enctype="multipart/form-data">{% csrf_token %}
+            <h3 class="form-title">登录到EuroTrip</h3>
+            <div class="form-group">
+                <label for="username">用户名</label><br>
+                {{ userform.username }}
+            </div>
+            <div class="form-group">
+                <label for="password">密码</label><br>
+                {{ userform.password }}
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="checkbox" onclick="check()">
+                <label class="form-check-label" for="checkbox">我同意接受
+                    <a href="#" title="最终用户许可协议" data-container="body" data-toggle="popover" data-placement="top"
+                       data-content="信息系统开发与实践 小组成员：高世岷 陈澜 何泽海 成煜昊 导师：祝世伟">最终用户许可协议</a>
+                </label>
+            </div>
+            <div class="form-group login-btn">
+                <button type="submit" class="btn btn-primary" id="login" disabled="disabled">登录</button>
+            </div>
+            <div class="form-group login-btn">
+                <a href="{% url 'tripRouting:regist' %}">
+                    <button type="button" class="btn btn-info" id="regist">注册</button>
+                </a>
+            </div>
+        </form>
+    </div>
 </div>
 <script>
     function check() {
@@ -58,6 +64,10 @@
             document.getElementById("login").disabled = "disabled";
         }
     }
+
+    $(function () {
+        $("[data-toggle='popover']").popover();
+    });
 </script>
 </body>
 </html>

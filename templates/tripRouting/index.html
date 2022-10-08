@@ -14,7 +14,7 @@
     <!-- jQuery and Bootstrap JS -->
     <script src="{% static 'jquery/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-    <title>Index page</title>
+    <title>欧洲之行，尽在掌握。欢迎来到EuroTrip</title>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top" id="index-navbar">
@@ -28,7 +28,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#" style="padding: 5px 25px 5px 15px">
+            <a class="navbar-brand" href="{% url 'tripRouting:index' %}" style="padding: 5px 25px 5px 15px">
                 <img alt="Brand" src="{% static 'tripRouting/images/favicon.ico' %}"
                      style="height: 100%; width: inherit; padding: 0; margin: 0"/>
             </a>
@@ -38,36 +38,36 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="{% url 'tripRouting:routing' %}">Start your EuroTrip! <span
+                <li><a href="{% url 'tripRouting:routing' %}">开始欧洲之旅<span
                         class="sr-only">(current)</span></a></li>
-                <li><a href="#">Learn about European</a></li>
+                <li><a href="#">了解欧洲</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">More <span class="caret"></span></a>
+                       aria-expanded="false">更多<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Check Citys</a></li>
-                        <li><a href="#">Check Routes</a></li>
-                        <li><a href="#">Check Sceneries</a></li>
+                        <li><a href="#">查看欧洲城市</a></li>
+                        <li><a href="#">查看交通方式</a></li>
+                        <li><a href="#">景点一览</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">Website docs</a></li>
+                        <li><a href="#">站点文档</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">关于我们</a></li>
                     </ul>
                 </li>
             </ul>
             {% if islogin != True %}
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{% url 'tripRouting:login' %}">Sign in or Sign Up</a></li>
+                    <li><a href="{% url 'tripRouting:login' %}">登录/注册</a></li>
                 </ul>
             {% else %}
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">Sign in as: <b>{{ username }}</b> <span class="caret"></span></a>
+                           aria-expanded="false">欢迎您：<b>{{ username }}</b> <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">My Profile</a></li>
-                            <li><a href="#">My Trip</a></li>
-                            <li><a href="{% url 'tripRouting:logout' %}">Logout</a></li>
+                            <li><a href="#">个人信息</a></li>
+                            <li><a href="#">我的行程</a></li>
+                            <li><a href="{% url 'tripRouting:logout' %}">退出登录</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -76,18 +76,23 @@
     </div><!-- /.container-fluid -->
 </nav>
 <div class="page-header">
-    <h1>Welcome to EuroTrip <br><small>Start your trip routing experience now!</small></h1>
+    <h1>欧洲之行，尽在掌握<br><small>欢迎来到EuroTrip！即刻开启你的行程！</small></h1><br>
     <div class="intro-button-area">
         {% if islogin != True %}
-            <a href="{% url 'tripRouting:routing' %}"><button class="intro-button">Login to start!<span>-</span></button></a>
+            <a href="{% url 'tripRouting:routing' %}">
+                <button class="intro-button">即刻登录<span>！</span></button>
+            </a>
         {% else %}
-            <a href="{% url 'tripRouting:routing' %}"><button class="intro-button">Start your EuroTrip!<span>-</span></button></a>
+            <a href="{% url 'tripRouting:routing' %}">
+                <button class="intro-button">开始行程<span>！</span></button>
+            </a>
         {% endif %}
-    </div>
+        <br><br><br></div>
 </div>
+<br>
 <div class="city-show">
     {% for city in city_list %}
-        <h6><b>{{ city.city_name }}</b></h6>
+        <h4 class="city-label"><b>{{ city.city_name }}</b></h4>
         <img src="{% static 'tripRouting/images/'|add:city.city_url %}" alt="{{ city.city_name }}"
              class="city-show-img"/><br><br><br>
     {% endfor %}

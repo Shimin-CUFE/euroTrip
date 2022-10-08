@@ -52,8 +52,6 @@ def logout(request):
 
 
 def regist(request):
-    """Load regist page"""
-    print("start regist")
     if request.method == 'POST':
         userform = UserForm(request.POST)
         if userform.is_valid():

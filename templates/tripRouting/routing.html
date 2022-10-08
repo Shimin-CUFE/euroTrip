@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% load static %}
     <link rel="shortcut icon" href="{% static 'tripRouting/images/favicon.ico' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'tripRouting/styles/routing.css' %}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'tripRouting/styles/routing.css' %}"/>
     <!-- jQuery and Bootstrap JS -->
     <script src="{% static 'jquery/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
@@ -21,7 +21,7 @@
     <title>Routing</title>
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top" id="index-navbar">
+<nav class="navbar navbar-default navbar-fixed-top" id="routing-navbar">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -32,7 +32,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#" style="padding: 5px 25px 5px 15px">
+            <a class="navbar-brand" href="{% url 'tripRouting:index' %}" style="padding: 5px 25px 5px 15px">
                 <img alt="Brand" src="{% static 'tripRouting/images/favicon.ico' %}"
                      style="height: 100%; width: inherit; padding: 0; margin: 0"/>
             </a>
@@ -42,26 +42,21 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li>
-                    <div class="input-group">
-                        <span class="input-group-addon">预算：</span>
-                        <input type="text" class="form-control" id="trip-budget" aria-describedby="basic-addon3">
-                        <span class="input-group-addon"><b>元</b></span>
-                    </div>
-                </li>
-                <li>
-                    <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon3">天数：</span>
-                        <input type="text" class="form-control" id="trip-days" aria-describedby="basic-addon3">
-                        <span class="input-group-addon"><b>天</b></span>
-                    </div>
-                </li>
+                <li><a href="{% url 'tripRouting:index' %}">回到主页</a></li>
             </ul>
+            <form class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="number" class="form-control" id="trip-budget" placeholder="预算">
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" id="trip-days" placeholder="天数">
+                </div>
+            </form>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 
-<!-- 错误提示 -->
+<!-- 提示 -->
 <div class='alert alert-heading' hidden>
     <a href='#' class='close' data-dismiss='alert'><span>×</span></a>
     <h4 id="notice-title"></h4>
@@ -111,7 +106,14 @@
     </div>
     <!-- 城市选项部分 -->
     <div class="city-area"></div>
-    <br><input type="button" class="btn btn-primary con-btn" id="continue" value="DONE>>" onclick="submit(user_selection);">
+    <br><input type="button" class="btn btn-primary con-btn" id="continue" value="选择完毕"
+               onclick="submit(user_selection);">
 </div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="info-container">
+        <h5 id="bottom-info">信息系统开发与实践 小组成员：高世岷 陈澜 何泽海 成煜昊 导师：祝世伟</h5>
+    </div>
+</nav>
 </body>
 </html>

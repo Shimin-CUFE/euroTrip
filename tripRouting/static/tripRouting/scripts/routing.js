@@ -53,7 +53,7 @@ $(document).ready(function () {
                 //每个城市分行显示
                 city_area.appendChild(document.createElement("br"));
             }
-            for (x in routes) {
+            for (let x in routes) {
                 //TODO: 用jQuery重构
                 var route = JSON.parse(routes[x])
                 route_list.push(route);
@@ -202,7 +202,7 @@ function addMapPoint(map, x, y) {
     });
     map.addOverlay(marker);
     marker.setLabel(label);
-    map.centerAndZoom(new BMapGL.Point(x, y), 8);
+    map.centerAndZoom(new BMapGL.Point(x, y), 9);
 }
 
 function deleteMapOverlay(x, y) {
@@ -211,7 +211,7 @@ function deleteMapOverlay(x, y) {
         //删除指定id的Overlay
         if (allOverlay[i].id === x) {
             map.removeOverlay(allOverlay[i]);
-            map.centerAndZoom(new BMapGL.Point(x, y), 8);
+            map.centerAndZoom(new BMapGL.Point(x, y), 9);
         }
     }
 }
@@ -225,10 +225,23 @@ function addMapLine(map, x1, y1, x2, y2) {
     map.addOverlay(polyline);
 }
 
+function alert(text) {
+    $("body").append("<div class='alert alert-danger alert-heading'>\n" +
+        "    <a href='#' class='close' data-dismiss='alert'><span>×</span></a>\n" +
+        "    <h4 id=\"notice-title\">注意：</h4>\n" +
+        "    <h6 id=\"notice-text\">" + text + "</h6>\n" +
+        "</div>");
+    $("div[class=alert-heading]:last").css("top", $("#routing-navbar").outerWidth(true));
+}
+
 function submit(user_selection) {
     let last_city_id = user_selection.city_list[user_selection.city_list.length - 1];
     let days_input = $("#" + last_city_id + "-days");
     let last_city_days = Number(days_input.val());
+    if (user_selection.city_list.length === 0) {
+        alert("请至少选择1个城市！");
+        return;
+    }
     if (Number(days_input.val()) === 0) {
         alert("请输入最后一个城市的天数！");
         return;

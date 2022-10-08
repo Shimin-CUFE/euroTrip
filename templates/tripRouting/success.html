@@ -7,14 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% load static %}
     <link rel="shortcut icon" href="{% static 'tripRouting/images/favicon.ico' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'tripRouting/styles/index.css' %}"/>
-    <script src="{% static 'tripRouting/scripts/index.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'tripRouting/styles/success.css' %}"/>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <!-- jQuery and Bootstrap JS -->
     <script src="{% static 'jquery/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-    <title>Index page</title>
+    <script src="{% static 'tripRouting/scripts/success.js' %}"></script>
+    <title>查看行程</title>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top" id="index-navbar">
@@ -28,7 +28,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#" style="padding: 5px 25px 5px 15px">
+            <a class="navbar-brand" href="{% url 'tripRouting:index' %}" style="padding: 5px 25px 5px 15px">
                 <img alt="Brand" src="{% static 'tripRouting/images/favicon.ico' %}"
                      style="height: 100%; width: inherit; padding: 0; margin: 0"/>
             </a>
@@ -55,37 +55,23 @@
                     </ul>
                 </li>
             </ul>
-            {% if islogin != True %}
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="{% url 'tripRouting:login' %}">Sign in or Sign Up</a></li>
-                </ul>
-            {% else %}
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">Sign in as: <b>{{ username }}</b> <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">My Profile</a></li>
-                            <li><a href="#">My Trip</a></li>
-                            <li><a href="{% url 'tripRouting:logout' %}">Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            {% endif %}
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
 <div class="page-header">
-    <h1>您的行程如下<br></h1>
-    {% for city in cities %}
-        <p>{{ city }}</p>
-    {% endfor %}
-    {% for route in traffic %}
-        <p>{{ route }}</p>
-    {% endfor %}
+    <h1>您的行程信息如下<br></h1>
 </div>
-<div class="result-show">
-
+<div id="result-show">
+    <h3 id="result-head">行程创建时间：<small id="time"></small></h3>
+    <h3 id="result-foot">行程金额与时间：</h3>
+</div>
+<div id="button-group">
+    <a href="{% url 'tripRouting:routing' %}">
+        <input type="button" class="btn btn-primary btn-default" value="重新规划行程">
+    </a>
+    <a href="{% url 'tripRouting:index' %}">
+        <input type="button" class="btn btn-primary btn-info" value="返回主页">
+    </a>
 </div>
 </body>
 </html>
